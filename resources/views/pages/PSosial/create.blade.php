@@ -12,7 +12,7 @@
                             <table class="table" id="append">
                                 <thead class="thead" >
                                     <tr>
-                                        <th colspan="2">Keterangan Pendidikan</th>
+                                        <th colspan="2">Keterangan Program Sosial</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -126,7 +126,7 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <input type="text" name="point[{{ $item->id }}]" id="total_point_{{ $item->id }}" value="0" class="form-control form-control-sm" readonly>
+                                                <input type="hidden" name="point[{{ $item->id }}]" id="total_point_{{ $item->id }}" value="0" class="form-control form-control-sm" readonly>
                                             </td>
                                         </tr>
                                         @endforeach

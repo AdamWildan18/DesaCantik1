@@ -9,7 +9,7 @@
                     <input type="checkbox" id="checkbox">
                     <div class="slider round open_miniSide"></div>
                 </label>
-                <img src="../img/desacantik.png" style="width: 300px">
+                <img src="/img/desacantik.png" style="width: 300px">
 
                 <div class="header_right d-flex justify-content-between align-items-center">
                     <div class="profile_info">

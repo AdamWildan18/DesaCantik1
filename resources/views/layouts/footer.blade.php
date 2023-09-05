@@ -3,8 +3,8 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="footer_iner text-center">
-                    <p>2020 © Influence - Designed by <a href="#"> <i class="ti-heart"></i> </a><a href="#">
-                            DashboardPack</a></p>
+                    <p>Desa Cinta Statistic <a href="#"> <i class="ti-heart"></i> </a><a href="#">
+                            </a></p>
                 </div>
             </div>
         </div>

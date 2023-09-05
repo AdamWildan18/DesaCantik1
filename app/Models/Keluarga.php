@@ -34,7 +34,7 @@ class Keluarga extends Model
     
     public function penduduks(): HasMany
     {
-        return $this->hasMany(Penduduk::class);
+        return $this->hasMany(Penduduk::class, 'keluarga_id', 'id');
     }
    
     public function bantuans(): HasOne

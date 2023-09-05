@@ -71,6 +71,6 @@ class Penduduk extends Model
      */
     public function keluargas(): BelongsTo
     {
-        return $this->belongsTo(Keluarga::class, 'keluarga_id', 'id');
+        return $this->belongsTo(Keluarga::class, 'keluarga_id');
     }
 }

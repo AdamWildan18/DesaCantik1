@@ -10,6 +10,7 @@ class Bantuan extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+    public $table = 'bantuans';
 
     /**
      * Get the user that owns the Bantuan

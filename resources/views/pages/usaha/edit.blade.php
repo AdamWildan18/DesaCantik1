@@ -14,7 +14,7 @@
                             <table class="table" id="append">
                                 <thead class="thead" >
                                     <tr>
-                                        <th colspan="3">Keterangan Pendidikan</th>
+                                        <th colspan="3">Keterangan Usaha</th>
                                     </tr>
                                 </thead>
                                 <tbody>

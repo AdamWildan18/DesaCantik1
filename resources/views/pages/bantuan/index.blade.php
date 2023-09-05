@@ -17,7 +17,7 @@
                                 </div>
                             @endif
                             <div class="white_box_tittle list_header">
-                                <h3>Data Keterangan Pendidikan</h3>
+                                <h3>Data Keterangan Bantuan</h3>
                                 <div class="box_right d-flex lms_block">
                                     <div class="serach_field_2">
                                         <div class="search_inner">
@@ -34,12 +34,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <a href="/bantuan/create">
-                                    <button class="btn btn-primary">Tambah Data</button>
-                                </a>
                             </div>
 
-                            <div class="QA_table"
+                            <div class="QA_table table-responsive"
                                 id="show">
                                 <!-- table-responsive -->
                                 <ul id="saveform_errList"></ul>
@@ -92,16 +89,39 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $item->id}}</td>
                                             <td>{{ $item->nama_kepala_keluarga}}</td>
-                                            @if ($item && $item->programs)
+                                            @if ($item->bantuans == '')
+                                            <td>
+                                                <a href="/bantuan/create/{{ $item->id }}">
+                                                    <button class="badge btn-primary">Tambah</button>
+                                                </a>
+                                            </td>
+                                            @endif
+                                            <td class="col-auto">
+                                                @if (!empty($item->bantuans->bpnt))
+                                                {{ $item->bantuans->bpnt }}<br>
+                                            @endif
+                                            @if (!empty($item->bantuans->pkh))
+                                                {{ $item->bantuans->pkh }}<br>
+                                            @endif
+                                            @if (!empty($item->bantuans->listrik))
+                                                {{ $item->bantuans->listrik }}<br>
+                                            @endif
+                                            @if (!empty($item->bantuans->pupuk))
+                                                {{ $item->bantuans->pupuk }}<br>
+                                            @endif
+                                            @if (!empty($item->bantuans->lpg))
+                                                {{ $item->bantuans->lpg }}<br>
+                                            @endif
+                                            </td>
+                                            {{-- @if ($item && $item->bantuans)
                                                 <td>{{ $item->programs->bantuan }}</td>
                                             @else
                                                 <td>
-                                                    <select class="form-select">
-                                                        <option value="">Pilih</option>
-                                                        <option value="Program Bantuan Sosial Sembako/BPNT">Program Bantuan Sosial Sembako/BPNT</option>
-                                                    </select>
+                                                    <a href="/bantuan/create/{{ $item->id }}">
+                                                        <button class="badge btn-primary">Tambah</button>
+                                                    </a>
                                                 </td>
-                                            @endif
+                                            @endif --}}
                                         </tr>
                                         @endforeach
                                     </tbody>

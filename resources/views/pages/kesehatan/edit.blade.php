@@ -18,7 +18,7 @@
                             <table class="table" id="append">
                                 <thead class="thead" >
                                     <tr>
-                                        <th colspan="2">Keterangan Ketenagakerjaan</th>
+                                        <th colspan="2">Keterangan Kesehatan</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -85,7 +85,7 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <input type="text" name="point" id="total_point" value="0" class="form-control form-control-sm totalpoint" readonly>
+                                                <input type="hidden" name="point" id="total_point" value="0" class="form-control form-control-sm totalpoint" readonly>
                                             </td>
                                         </tr>
                                         <tr>
@@ -142,9 +142,9 @@
             });
 
             var selectedOption = $('select[name="giji_anak"] option:selected');
-            totalPoints += parseInt(selectedOption.data('point')) || 0;
+            totalPoints -= parseInt(selectedOption.data('point')) || 0;
 
-            totalPoints -= 23;
+            totalPoints += 23;
 
             $('#total_point').val(totalPoints);
         }

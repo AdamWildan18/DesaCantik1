@@ -18,7 +18,7 @@
                             <table class="table" id="append">
                                 <thead class="thead" >
                                     <tr>
-                                        <th colspan="2">Keterangan Ketenagakerjaan</th>
+                                        <th colspan="2">Keterangan Kesehatan</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -204,7 +204,7 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <input type="text" name="point[{{ $item->id }}]" id="total_point_{{ $item->id }}" value="0" class="form-control form-control-sm totalpoint" readonly>
+                                                <input type="hidden" name="point[{{ $item->id }}]" id="total_point_{{ $item->id }}" value="0" class="form-control form-control-sm totalpoint" readonly>
                                             </td>
                                         </tr>
                                         @endforeach
@@ -263,9 +263,9 @@
         });
 
         var selectedOption = $('#giji_anak_' + pendudukId + ' option:selected');
-        totalPoints += getDataPoint(selectedOption);
+        totalPoints -= getDataPoint(selectedOption);
 
-        totalPoints -= 23;
+        totalPoints += 20;
         console.log('Total Points:', totalPoints); // Tambahkan ini untuk melacak total poin
 
         // Menyimpan total poin di elemen totalpoint

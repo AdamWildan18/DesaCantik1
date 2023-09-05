@@ -17,7 +17,7 @@
                                 </div>
                             @endif
                             <div class="white_box_tittle list_header">
-                                <h3>Data Keterangan Kesehatan</h3>
+                                <h3>Data Keterangan Program Perlindungan Sosial</h3>
                                 <div class="box_right d-flex lms_block">
                                     <div class="serach_field_2">
                                         <div class="search_inner">

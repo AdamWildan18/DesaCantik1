@@ -1,13 +1,18 @@
  <!-- sidebar  -->
  <nav class="sidebar dark_sidebar">
-     <div class="logo d-flex justify-content-between">
-        <img src="../img/DesaCintaStatistik.png" style="width: 230px">
-        <hr>
-         <div class="sidebar_close_icon d-lg-none">
-             <i class="ti-close"></i>
-         </div>
-     </div>
-     <ul id="sidebar_menu">
+     
+
+    <ul id="sidebar_menu">
+        <li>
+            <a href="/" aria-expanded="false">
+                <div class="nav_title">
+                    <img src="/img/DesaCintaStatistik.png" style="width: 220px">
+                </div>
+                <div class="sidebar_close_icon d-lg-none">
+                    <i class="ti-close"></i>
+                </div>
+            </a>
+        </li>
          <li>
              <a href="/" aria-expanded="false">
                  <div class="nav_icon_small">

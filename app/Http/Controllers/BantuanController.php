@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bantuan;
-use App\Models\Keluarga;
 use App\Models\Program;
+use App\Models\Keluarga;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class BantuanController extends Controller
 {
@@ -16,7 +17,7 @@ class BantuanController extends Controller
      */
     public function index()
     {
-        $data = Keluarga::with('programs')->get();
+        $data = Keluarga::with('programs', 'bantuans')->get();
         return view('pages.bantuan.index', compact('data'));
     }
 
@@ -25,13 +26,11 @@ class BantuanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create() 
-    {
-        $data = Keluarga::with(['programs' => function ($query) {
-            $query->whereNull('bantuan');
-        }])->get();
-        return view('pages.bantuan.create', compact('data'));
-    }
+    public function create($id) 
+{
+    $data = Keluarga::with('penduduks')->findOrFail($id);
+    return view('pages.bantuan.create', compact('data'));
+}
 
 
     /**
@@ -42,7 +41,36 @@ class BantuanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = Validator::make($request->all(), [
+            'keluarga_id' => 'max:50|required',
+            'bpnt'=> 'max:50',
+            'pkh'=> 'max:50',
+            'blt'=> 'max:50',
+            'listrik'=> 'max:50',
+            'pupuk'=> 'max:50',
+            'lpg'=> 'max:50',
+        ]);
+        
+
+        if ($data->fails()) {
+            return response()->json([
+                'status' => 400,
+                'errors' => $data->messages(),
+            ]);
+        }else{
+            $data = new Bantuan;
+            $data->keluarga_id = $request->input('keluarga_id');
+            $data->bpnt = $request->input('bpnt');
+            $data->pkh = $request->input('pkh');
+            $data->blt = $request->input('blt');
+            $data->listrik = $request->input('listrik');
+            $data->pupuk = $request->input('pupuk');
+            $data->lpg = $request->input('lpg');
+
+            $data->save();
+        
+            return response()->json(['success' => true, 'message' => 'Data Bantuan Berhasil Disimpan!!!']);
+        }
     }
 
     /**

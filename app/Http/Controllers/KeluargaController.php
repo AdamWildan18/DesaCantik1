@@ -19,11 +19,16 @@ class KeluargaController extends Controller
      */
     public function index()
     {
-        $data = Keluarga::with('penduduks')->filter()->paginate(10)->withQueryString();
+        $dataQuery = Keluarga::with('penduduks')->filter();
+
+        if (auth()->check()) {
+            $data = $dataQuery->paginate(10)->withQueryString();
+        } else {
+            $filteredData = $dataQuery->has('penduduks')->paginate(10)->withQueryString();
+        }
+    
         return view('pages.keluarga.index')->with([
-            'data' => $data,
-            // 'pen' => $pen,
-            // 'pen' => $pen,
+            'data' => $data ?? $filteredData,
         ]);
     }
 

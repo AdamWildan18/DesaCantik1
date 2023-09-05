@@ -132,9 +132,9 @@ Route::post('/mail/send', [KirimEmailController::class, 'kirim']);
 Route::middleware(['checkRole:superadmin'])->group(function(){
     Route::get('/bantuan', [BantuanController::class, 'index']);
     Route::get('/bantuan_datalist', [BantuanController::class, 'bantuan']);
-    Route::get('/bantuan/create', [BantuanController::class, 'create']);
+    Route::get('/bantuan/create/{id}', [BantuanController::class, 'create']);
     Route::get('/bantuan/edit/{id}', [BantuanController::class, 'edit']);
     Route::post('/bantuan/update/{id}', [BantuanController::class, 'update']);
-    Route::post('/bantuan/store/{id}', [BantuanController::class, 'store']);
+    Route::post('/bantuan/store', [BantuanController::class, 'store']);
     Route::delete('/bantuan/delete/{id}', [BantuanController::class, 'destroy']);
 });

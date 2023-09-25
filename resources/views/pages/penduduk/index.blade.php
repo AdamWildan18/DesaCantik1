@@ -97,6 +97,7 @@
                                                             </ul>
                                                         </div>
                                                     </td>
+                                                    
                                                     @endguest
                                                     <td>{{ $loop->iteration }}</td>
                                                     @guest

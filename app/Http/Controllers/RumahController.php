@@ -16,11 +16,24 @@ class RumahController extends Controller
      */
     public function index(Request $request)
     {
-        // $data = Rumah::orderBy('id_keluarga_id', 'asc')->filter()->paginate(10)->withQueryString();
-        $data = Rumah::with('keluargas')->filter()->paginate(10)->withQueryString();
+        $datauser = Auth()->user();
+
+        if ($datauser) {
+            $address = $datauser->address;
+            if ($address === 'Pemkot'){
+                $data = Rumah::with('keluargas')->filter()->paginate(10)->withQueryString();
+            }else{
+            $data = Rumah::whereHas('keluargas.users', function ($query) use ($address) {
+                $query->where('address', $address);
+            })
+            ->filter()->paginate(10)->withQueryString();
+            }
+            // $data = Penduduk::with('keluargas')->orderBy('nama', 'asc')->filter()->paginate(10)->withQueryString();
+        }else{
+            $data = Rumah::with('keluargas')->filter()->paginate(10)->withQueryString();
+        }
         return view('pages.rumah.index')->with([
-            // 'data' => $data,
-            'data' => $data
+            'data' => $data,
         ]);
     }
 

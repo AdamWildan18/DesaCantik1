@@ -60,6 +60,35 @@
                                         @endif
                                     </tr>
                                     <tr>
+                                        <td>address</td>
+                                        <td>
+                                            <select name="address" id="address" class="form-select form-select-sm">
+                                                <option value="">Pilih Address</option>
+                                                <option value="Cibabat">Cibabat</option>
+                                                <option value="Citerep">Citerep</option>
+                                                <option value="Cipageran">Cipageran</option>
+                                                <option value="Pasirkaliki">Pasirkaliki</option>
+                                                <option value="Padasuka">Padasuka</option>
+                                                <option value="Cimahi">Cimahi</option>
+                                                <option value="Cigugur Tengah">Cigugur Tengah</option>
+                                                <option value="Karang Mekar">Karang Mekar</option>
+                                                <option value="Karangmekar">Karangmekar</option>
+                                                <option value="Setiamanah">Setiamanah</option>
+                                                <option value="Baros">Baros</option>
+                                                <option value="Cibeber">Cibeber</option>
+                                                <option value="Lewigajah">Lewigajah</option>
+                                                <option value="Utama">Utama</option>
+                                                <option value="Melong">Melong</option>
+                                                <option value="Ciberem">Ciberem</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="hidden" id="id">
+                                        </td>
+                                    </tr>
+                                    <tr>
                                         <td colspan="3">
                                             <div class="d-flex justify-content-end">
                                                 <button class="btn btn-primary btn-sm m-1" >Simpan</button>

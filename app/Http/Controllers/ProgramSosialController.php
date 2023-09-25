@@ -19,11 +19,27 @@ class ProgramSosialController extends Controller
      */
     public function index(Request $request)
     {
+        $datauser = Auth()->user();
         $input = $request->input('search');
-        $data = ProgramSosial::whereHas('penduduks', function ($query)use($input){
-            $query->where('nama', 'LIKE', '%' . $input . '%');
-        })->get();
-        return view('pages.PSosial.index', compact('data'));
+        if ($datauser) {
+            $address = $datauser->address;
+            if ($address === 'Pemkot'){
+                $data = ProgramSosial::with('penduduks')->get();
+            }else{
+            $data = ProgramSosial::whereHas('penduduks.keluargas.users', function ($query) use ($address) {
+                $query->where('address', $address);
+            })
+            ->whereHas('penduduks', function ($query)use($input){
+                    $query->where('nama', 'LIKE', '%' . $input . '%');
+            })
+            ->get();
+            }
+        }else{
+            $data = ProgramSosial::with('penduduks')->get();
+        }
+        return view('pages.psosial.index')->with([
+            'data' => $data,
+        ]);
     }
 
     /**

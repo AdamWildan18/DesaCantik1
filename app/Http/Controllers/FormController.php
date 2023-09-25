@@ -25,7 +25,23 @@ class FormController extends Controller
 
     public function verif()
     {
-        $data = Keluarga::with('rumahs','penduduks' )->get();
-        return view('pages.form.show', compact('data'));
+        $datauser = Auth()->user();
+        if ($datauser) {
+            $address = $datauser->address;
+            if ($address === 'Pemkot'){
+                $data = Keluarga::with('penduduks')->get();
+            }else{
+            $data = Keluarga::whereHas('penduduks.keluargas.users', function ($query) use ($address) {
+                $query->where('address', $address);
+            })
+            ->get();
+            }
+
+            return view('pages.form.show')->with([
+                'data' => $data,
+            ]);
+        }
+    //     $data = Keluarga::with('rumahs','penduduks' )->get();
+    //     return view('pages.form.show', compact('data'));
     }
 }

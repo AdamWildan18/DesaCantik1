@@ -19,11 +19,27 @@ class KesehatanController extends Controller
      */
     public function index(Request $request)
     {
+        $datauser = Auth()->user();
         $input = $request->input('search');
-        $data = Kesehatan::whereHas('penduduks', function ($query)use($input){
-            $query->where('nama', 'LIKE', '%' . $input . '%');
-        })->get();
-        return view('pages.kesehatan.index', compact('data'));
+        if ($datauser) {
+            $address = $datauser->address;
+            if ($address === 'Pemkot'){
+                $data = Kesehatan::with('penduduks')->get();
+            }else{
+            $data = Kesehatan::whereHas('penduduks.keluargas.users', function ($query) use ($address) {
+                $query->where('address', $address);
+            })
+            ->whereHas('penduduks', function ($query)use($input){
+                    $query->where('nama', 'LIKE', '%' . $input . '%');
+            })
+            ->get();
+            }
+        }else{
+            $data = Kesehatan::with('penduduks')->get();
+        }
+        return view('pages.kesehatan.index')->with([
+            'data' => $data,
+        ]);
     }
 
     /**

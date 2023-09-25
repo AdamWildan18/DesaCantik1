@@ -70,6 +70,15 @@ class Keluarga extends Model
     {
         return $this->hasManyThrough(USaha::class, Penduduk::class);
     }
+    /**
+     * Get all of the comments for the Keluarga
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function users(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 
 
 }

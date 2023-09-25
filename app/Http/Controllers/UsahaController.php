@@ -17,11 +17,27 @@ class UsahaController extends Controller
      */
     public function index(Request $request)
     {
+        $datauser = Auth()->user();
         $input = $request->input('search');
-        $data = Usaha::whereHas('penduduks', function ($query)use($input){
-            $query->where('nama', 'LIKE', '%' . $input . '%');
-        })->get();
-        return view('pages.usaha.index', compact('data'));
+        if ($datauser) {
+            $address = $datauser->address;
+            if ($address === 'Pemkot'){
+                $data = Usaha::with('penduduks')->get();
+            }else{
+            $data = Usaha::whereHas('penduduks.keluargas.users', function ($query) use ($address) {
+                $query->where('address', $address);
+            })
+            ->whereHas('penduduks', function ($query)use($input){
+                    $query->where('nama', 'LIKE', '%' . $input . '%');
+            })
+            ->get();
+            }
+        }else{
+            $data = Usaha::with('penduduks')->get();
+        }
+        return view('pages.usaha.index')->with([
+            'data' => $data,
+        ]);
     }
 
     /**

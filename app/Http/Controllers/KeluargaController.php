@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 // use App\Models\Relasi;
+use App\Models\User;
+use App\Models\Relasi;
 use App\Models\Keluarga;
 use App\Models\Penduduk;
-use App\Models\Relasi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
@@ -19,16 +21,32 @@ class KeluargaController extends Controller
      */
     public function index()
     {
-        $dataQuery = Keluarga::with('penduduks')->filter();
-
-        if (auth()->check()) {
-            $data = $dataQuery->paginate(10)->withQueryString();
-        } else {
-            $filteredData = $dataQuery->has('penduduks')->paginate(10)->withQueryString();
+        $datauser = Auth::user();
+        if ($datauser) {
+            $address = $datauser->address;
+            if ($address === 'Pemkot'){
+                $data = Keluarga::with('users', 'penduduks')->get();
+            } else {
+                
+                $data = Keluarga::with('users', 'penduduks')
+                    ->whereHas('users', function($query) use ($address) {
+                        $query->where('address', $address);
+                    })
+                    ->get(); // Anda perlu menggunakan get() untuk mengambil hasil dari query.
+            }
+        }else{
+            $data = Keluarga::with('users', 'penduduks')->get();
         }
+        // $dataQuery = Keluarga::with('penduduks')->where('user_id', $datauser)->filter();
+
+        // if (auth()->check()) {
+        //     $data = $dataQuery->paginate(10)->withQueryString();
+        // } else {
+        //     $filteredData = $dataQuery->has('keluargas')->paginate(10)->withQueryString();
+        // }
     
         return view('pages.keluarga.index')->with([
-            'data' => $data ?? $filteredData,
+            'data' => $data,
         ]);
     }
 
@@ -68,6 +86,7 @@ class KeluargaController extends Controller
             $keluarga = new Keluarga;
             $keluarga->id = $request->input('id');
             $keluarga->nama_kepala_keluarga = $request->input('nama_kepala_keluarga');
+            $keluarga->user_id = auth()->user()->id;
             $keluarga->save();
             return response()->json([
                 'status' => 200,

@@ -24,7 +24,22 @@ class PendudukController extends Controller
      */
     public function index(Request $request)
     {
-        $data = Penduduk::with('keluargas')->orderBy('nama', 'asc')->filter()->paginate(10)->withQueryString();
+        $datauser = Auth()->user();
+
+        if ($datauser) {
+            $address = $datauser->address;
+            if ($address === 'Pemkot'){
+                $data = Penduduk::with('keluargas')->orderBy('nama', 'asc')->filter()->paginate(10)->withQueryString();
+            }else{
+            $data = Penduduk::whereHas('keluargas.users', function ($query) use ($address) {
+                $query->where('address', $address);
+            })
+            ->orderBy('nama', 'asc')->filter()->paginate(10)->withQueryString();
+            }
+        // $data = Penduduk::with('keluargas')->orderBy('nama', 'asc')->filter()->paginate(10)->withQueryString();
+        }else{
+            $data = Penduduk::with('keluargas')->orderBy('nama', 'asc')->filter()->paginate(10)->withQueryString();
+        }
         return view('pages.penduduk.index')->with([
             'data' => $data,
         ]);

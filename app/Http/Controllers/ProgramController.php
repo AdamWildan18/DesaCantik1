@@ -17,11 +17,27 @@ class ProgramController extends Controller
      */
     public function index(Request $request)
     {
+        $datauser = Auth()->user();
         $input = $request->input('search');
-        $data = Program::whereHas('keluargas', function ($query)use($input){
-            $query->where('nama_kepala_keluarga', 'LIKE', '%' . $input . '%');
-        })->get();
-        return view('pages.program.index', compact('data'));
+        if ($datauser) {
+            $address = $datauser->address;
+            if ($address === 'Pemkot'){
+                $data = Program::with('keluargas')->get();
+            }else{
+            $data = Program::whereHas('keluargas.users', function ($query) use ($address) {
+                $query->where('address', $address);
+            })
+            ->whereHas('keluargas', function ($query)use($input){
+                    $query->where('nama_kepala_keluarga', 'LIKE', '%' . $input . '%');
+            })
+            ->get();
+            }
+        }else{
+            $data = Program::with('keluargas')->get();
+        }
+        return view('pages.program.index')->with([
+            'data' => $data,
+        ]);
     }
 
     /**

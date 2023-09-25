@@ -51,6 +51,7 @@ class SessionController extends Controller
             'email' => 'email|required|unique:users,email',
             'password' => 'min:8|required', // Hapus 'password' menjadi 'password'
             'role' => 'required',
+            'address' => 'required',
         ]);
     
         if ($validator->fails()) {
@@ -64,6 +65,7 @@ class SessionController extends Controller
             $data->email = $request->input('email');
             $data->password = Hash::make($request->input('password')); 
             $data->role = $request->input('role');
+            $data->address = $request->input('address');
             $data->save();
             return response()->json(['success' => true, 'message' => 'Data Berhasil Disimpan']);
         }
